@@ -1,10 +1,12 @@
 import express from 'express';
 import http from 'http';
-import socketio from 'socket.io';
+import socketio, { Socket } from 'socket.io';
 
 import { SocketIoModelTemplate } from './SocketModelTemplate';
 
 export class SocketIoModel extends SocketIoModelTemplate {
+  readonly #sockets: Socket[] = [];
+
   constructor() {
     super();
 
@@ -17,6 +19,10 @@ export class SocketIoModel extends SocketIoModelTemplate {
     });
 
     io.on('connection', (socket) => {
+      this.#sockets.push(socket);
+
+      this.#sockets.forEach((s) => s.emit('login', `${socket.id} logged in`));
+
       console.log('a user connected');
 
       socket.emit('connect', { msg: 'hello' });
