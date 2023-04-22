@@ -8,7 +8,7 @@ dependencies:
     specifier: ^2.3.0
     version: 2.3.0
   socket.io:
-    specifier: ^2.5.0
+    specifier: '2'
     version: 2.5.0
 
 devDependencies:

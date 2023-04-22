@@ -10,14 +10,24 @@ export class SocketIoModel extends SocketIoModelTemplate {
 
     const app = express();
     const server = http.createServer(app);
-    const io = socketio();
+    const io = socketio(server);
 
     app.get('/', (_, res) => {
       res.send('<h1>Hello world</h1>');
     });
 
-    io.on('connection', (_) => {
+    io.on('connection', (socket) => {
       console.log('a user connected');
+
+      socket.emit('connect', { msg: 'hello' });
+
+      socket.on('login', (args) => {
+        console.log('login', args);
+      });
+
+      socket.on('message', (args) => {
+        console.log(args);
+      });
 
       this.notifyLogin({ type: 'channel', privateKey: '1234' });
     });
