@@ -1,4 +1,4 @@
-import { ChannelManager } from '../common/channel/ChannelManager';
+import { ChannelManager } from './channel/ChannelManager';
 import {
   DonationRegisterParam,
   LoginParam,

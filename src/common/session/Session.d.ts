@@ -1,3 +1,3 @@
-export type Channel = {
+export type Session = {
   privateKey: string;
 };
