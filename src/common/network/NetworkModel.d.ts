@@ -1,7 +1,8 @@
 export interface NetworkModel {
   onLogin(param: LoginParam);
+  onDonationRegister(param: DonationRegisterParam);
 }
 
 export type LoginParam = { type: 'channel' | 'user'; privateKey: string };
 
-export type OnLoginCallback = (param: LoginParam) => void;
+export type DonationRegisterParam = { from: string; to: string; src: {} };

@@ -1,5 +1,9 @@
-import { ChannelManager } from 'common/channel/ChannelManager';
-import { LoginParam, NetworkModel } from 'common/network/NetworkModel';
+import { ChannelManager } from '../common/channel/ChannelManager';
+import {
+  DonationRegisterParam,
+  LoginParam,
+  NetworkModel,
+} from '../common/network/NetworkModel';
 
 export class VegaNetworkModel implements NetworkModel {
   readonly #channel = new ChannelManager();
@@ -7,5 +11,9 @@ export class VegaNetworkModel implements NetworkModel {
   onLogin(param: LoginParam) {
     const channel = this.#channel.createChannel(param.privateKey);
     this.#channel.addChannel(channel);
+  }
+
+  onDonationRegister(param: DonationRegisterParam) {
+    console.log(param);
   }
 }

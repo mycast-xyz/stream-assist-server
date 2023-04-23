@@ -2,7 +2,11 @@ import express from 'express';
 import http from 'http';
 import socketio, { Socket } from 'socket.io';
 
-import { NetworkModel } from './NetworkModel';
+import {
+  DonationRegisterParam,
+  LoginParam,
+  NetworkModel,
+} from './NetworkModel';
 
 export class SocketIoModel {
   readonly #sockets: Socket[] = [];
@@ -31,10 +35,10 @@ export class SocketIoModel {
       socket.on('message', (msg: SocketMessage) => {
         switch (msg.type) {
           case 'login':
-            this.#network.onLogin({
-              type: msg.message.type,
-              privateKey: msg.message.privateKey,
-            });
+            this.#network.onLogin(msg.message);
+            break;
+          case 'donation-register':
+            this.#network.onDonationRegister(msg.message);
             break;
           default:
         }
@@ -48,9 +52,13 @@ export class SocketIoModel {
   }
 }
 
-type SocketMessage = LoginMessage;
+type SocketMessage = LoginSocketMessage | DonationRegisterMessage;
 
-type LoginMessage = {
-  type: 'login';
-  message: { type: 'channel' | 'user'; privateKey: string };
-};
+type Template<T, M> = { type: T; message: M };
+
+type LoginSocketMessage = Template<'login', LoginParam>;
+
+type DonationRegisterMessage = Template<
+  'donation-register',
+  DonationRegisterParam
+>;
