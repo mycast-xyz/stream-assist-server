@@ -1,3 +1,4 @@
+import { DonationPool } from '../../common/donation/DonationPool';
 import { Channel } from './Channel';
 
 export class ChannelManager {
@@ -14,6 +15,7 @@ export class ChannelManager {
   createChannel(privateKey: string): Channel {
     return {
       privateKey: privateKey,
+      donations: new DonationPool(),
     };
   }
 }
