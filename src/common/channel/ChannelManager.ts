@@ -7,7 +7,13 @@ export class ChannelManager {
     this.#channels = [...this.#channels, channel];
   }
 
-  removeChannel(channelHash: string) {
-    this.#channels = this.#channels.filter((c) => c.hash !== channelHash);
+  removeChannel(privateKey: string) {
+    this.#channels = this.#channels.filter((c) => c.privateKey !== privateKey);
+  }
+
+  createChannel(privateKey: string): Channel {
+    return {
+      privateKey: privateKey,
+    };
   }
 }

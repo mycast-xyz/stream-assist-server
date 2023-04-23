@@ -1,3 +1,3 @@
 export type Channel = {
-  hash: string;
+  privateKey: string;
 };

@@ -1,5 +1,5 @@
-export interface SocketModel {
-  onLogin(callback: OnLoginCallback);
+export interface NetworkModel {
+  onLogin(param: LoginParam);
 }
 
 export type LoginParam = { type: 'channel' | 'user'; privateKey: string };

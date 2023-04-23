@@ -2,13 +2,14 @@ import express from 'express';
 import http from 'http';
 import socketio, { Socket } from 'socket.io';
 
-import { SocketIoModelTemplate } from './SocketModelTemplate';
+import { NetworkModel } from './NetworkModel';
 
-export class SocketIoModel extends SocketIoModelTemplate {
+export class SocketIoModel {
   readonly #sockets: Socket[] = [];
+  readonly #network: NetworkModel;
 
-  constructor() {
-    super();
+  constructor(network: NetworkModel) {
+    this.#network = network;
 
     const app = express();
     const server = http.createServer(app);
@@ -27,15 +28,18 @@ export class SocketIoModel extends SocketIoModelTemplate {
 
       socket.emit('connect', { msg: 'hello' });
 
-      socket.on('login', (args) => {
-        console.log('login', args);
+      socket.on('message', (msg: SocketMessage) => {
+        switch (msg.type) {
+          case 'login':
+            this.#network.onLogin({
+              type: msg.message.type,
+              privateKey: msg.message.privateKey,
+            });
+            break;
+          default:
+        }
+        console.log(msg);
       });
-
-      socket.on('message', (args) => {
-        console.log(args);
-      });
-
-      this.notifyLogin({ type: 'channel', privateKey: '1234' });
     });
 
     server.listen(3000, () => {
@@ -43,3 +47,10 @@ export class SocketIoModel extends SocketIoModelTemplate {
     });
   }
 }
+
+type SocketMessage = LoginMessage;
+
+type LoginMessage = {
+  type: 'login';
+  message: { type: 'channel' | 'user'; privateKey: string };
+};

@@ -1,10 +1,10 @@
+import { VegaNetworkModel } from './app/VegaNetworkModel';
 import { SocketIoModel } from './common/network/SocketIoModel';
 
 export class VegaStreamAssistServer {
   run() {
-    const socket = new SocketIoModel();
-    socket.onLogin((param) => {
-      console.log(param);
-    });
+    const network = new VegaNetworkModel();
+    //const socket = new SocketIoModel(network);
+    new SocketIoModel(network);
   }
 }
