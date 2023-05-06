@@ -12,7 +12,7 @@ export class SocketIoModel {
   readonly #sockets: Socket[] = [];
   readonly #network: NetworkModel;
 
-  constructor(network: NetworkModel) {
+  constructor(network: NetworkModel, port: number) {
     this.#network = network;
 
     const app = express();
@@ -46,8 +46,8 @@ export class SocketIoModel {
       });
     });
 
-    server.listen(3000, () => {
-      console.log('listening on *:3000');
+    server.listen(port, () => {
+      console.log(`listening on *:${port}`);
     });
   }
 }
