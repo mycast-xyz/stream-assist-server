@@ -1,4 +1,4 @@
-import { Config } from 'app/config/Config';
+import { Config } from '../../app/config/Config';
 import { Pool, RowDataPacket, createPool } from 'mysql2/promise';
 
 export class UserDbManager {
