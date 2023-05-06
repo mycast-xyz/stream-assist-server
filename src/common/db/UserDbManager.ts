@@ -1,3 +1,4 @@
+import { Config } from 'app/config/Config';
 import { Pool, RowDataPacket, createPool } from 'mysql2/promise';
 
 export class UserDbManager {
@@ -5,10 +6,9 @@ export class UserDbManager {
 
   constructor() {
     this.#db = createPool({
-      user: 'root',
-      password: 'marionette3_1',
-      database: 'elha',
-      host: 'mycast.xyz',
+      user: Config.DB_USER,
+      password: Config.DB_PASS,
+      database: Config.DB_NAME,
     });
   }
 

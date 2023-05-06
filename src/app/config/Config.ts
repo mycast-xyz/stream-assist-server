@@ -11,6 +11,18 @@ class ConfigInit {
     const parsed = Number.parseInt(env);
     return Number.isNaN(parsed) ? DEFAULT_SOCKET_PORT : parsed;
   }
+
+  get DB_NAME(): string {
+    return process.env.DB_NAME ?? '';
+  }
+
+  get DB_USER(): string {
+    return process.env.DB_USER ?? '';
+  }
+
+  get DB_PASS(): string {
+    return process.env.DB_PASS ?? '';
+  }
 }
 
 export const Config = new ConfigInit();
