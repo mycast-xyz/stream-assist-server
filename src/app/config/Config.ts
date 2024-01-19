@@ -23,6 +23,10 @@ class ConfigInit {
   get DB_PASS(): string {
     return process.env.DB_PASS ?? '';
   }
+
+  get YOUTUBE_API_KEY(): string {
+    return process.env.YOUTUBE_KEY ?? '';
+  }
 }
 
 export const Config = new ConfigInit();
